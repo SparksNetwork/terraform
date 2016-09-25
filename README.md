@@ -1,11 +1,22 @@
+# Terraform
+
+## Install and setup
 Make sure your AWS variables are set up before running
 
 ```
 brew install terraform
+terraform init -backend=s3 -backend-config="bucket=terraform.sparks.network" -backend-config="region=us-west-2" -backend-config="key=terraform.tfstate"
+```
+
+## Running:
+
+Now you should be able to run the plan:
+
+```
 bin/plan
 ```
 
-review review review
+Review the changes and then if good:
 
 ```
 bin/apply
