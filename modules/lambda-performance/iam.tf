@@ -23,7 +23,7 @@ resource "aws_iam_role" "kinesis_consumer" {
 }
 
 resource "aws_iam_role_policy" "sns_producer" {
-  name = "sns"
+  name = "producer-policy"
   role = "${aws_iam_role.sns_producer.name}"
   policy = <<POLICY
 {
@@ -36,6 +36,15 @@ resource "aws_iam_role_policy" "sns_producer" {
             ],
             "Resource": [
                 "${aws_sns_topic.sns-performance.arn}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:BatchGetItem"
+            ],
+            "Resource": [
+                "${aws_dynamodb_table.sns-performance.arn}"
             ]
         }
     ]
@@ -65,7 +74,7 @@ POLICY
 }
 
 resource "aws_iam_role_policy" "kinesis_producer" {
-  name = "kinesis"
+  name = "kinesis-producer"
   role = "${aws_iam_role.kinesis_producer.name}"
   policy = <<POLICY
 {
@@ -81,6 +90,15 @@ resource "aws_iam_role_policy" "kinesis_producer" {
             ],
             "Resource": [
                 "${aws_kinesis_stream.kinesis-performance.arn}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:BatchGetItem"
+            ],
+            "Resource": [
+                "${aws_dynamodb_table.kinesis-performance.arn}"
             ]
         }
     ]
