@@ -25,6 +25,7 @@ resource "aws_iam_role" "kinesis_consumer" {
 resource "aws_iam_role_policy" "sns_producer" {
   name = "producer-policy"
   role = "${aws_iam_role.sns_producer.name}"
+
   policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -55,6 +56,7 @@ POLICY
 resource "aws_iam_role_policy" "sns_consumer" {
   name = "dynamodb"
   role = "${aws_iam_role.sns_consumer.name}"
+
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -76,6 +78,7 @@ POLICY
 resource "aws_iam_role_policy" "kinesis_producer" {
   name = "kinesis-producer"
   role = "${aws_iam_role.kinesis_producer.name}"
+
   policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -109,6 +112,7 @@ POLICY
 resource "aws_iam_role_policy" "kinesis_consumer_kinesis" {
   name = "kinesis"
   role = "${aws_iam_role.kinesis_consumer.name}"
+
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -138,6 +142,7 @@ POLICY
 resource "aws_iam_role_policy" "kinesis_consumer_dynamodb" {
   name = "dynamodb"
   role = "${aws_iam_role.kinesis_consumer.name}"
+
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -158,6 +163,7 @@ POLICY
 
 resource "aws_iam_policy" "lambda_logs" {
   name = "lambda-logs"
+
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -175,12 +181,13 @@ POLICY
 }
 
 resource "aws_iam_policy_attachment" "lambda_logs" {
-  name = "lambda_logs"
+  name       = "lambda_logs"
   policy_arn = "${aws_iam_policy.lambda_logs.arn}"
+
   roles = [
     "${aws_iam_role.sns_producer.name}",
     "${aws_iam_role.sns_consumer.name}",
     "${aws_iam_role.kinesis_producer.name}",
-    "${aws_iam_role.kinesis_consumer.name}"
+    "${aws_iam_role.kinesis_consumer.name}",
   ]
 }
