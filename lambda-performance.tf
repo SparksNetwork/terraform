@@ -1,8 +1,10 @@
 variable "apex_function_sns-consumer" {}
+variable "apex_function_kinesis-consumer" {}
 
 module "lambda-performance" {
   source = "./modules/lambda-performance"
   sns_consumer_arn = "${var.apex_function_sns-consumer}"
+  kinesis_consumer_arn = "${var.apex_function_kinesis-consumer}"
 }
 
 output "lp_sns_topic_arn" {

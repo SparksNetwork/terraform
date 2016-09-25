@@ -64,6 +64,80 @@ resource "aws_iam_role_policy" "sns_consumer" {
 POLICY
 }
 
+resource "aws_iam_role_policy" "kinesis_producer" {
+  name = "kinesis"
+  role = "${aws_iam_role.kinesis_producer.name}"
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:DescribeStream",
+                "kinesis:GetShardIterator",
+                "kinesis:PutRecord",
+                "kinesis:PutRecords"
+            ],
+            "Resource": [
+                "${aws_kinesis_stream.kinesis-performance.arn}"
+            ]
+        }
+    ]
+}
+POLICY
+}
+
+resource "aws_iam_role_policy" "kinesis_consumer_kinesis" {
+  name = "kinesis"
+  role = "${aws_iam_role.kinesis_consumer.name}"
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kinesis:DescribeStream",
+        "kinesis:GetShardIterator",
+        "kinesis:GetRecords",
+        "kinesis:ListStreams"
+      ],
+      "Resource": [
+        "${aws_kinesis_stream.kinesis-performance.arn}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["kinesis:ListStreams"],
+      "Resource": "*"
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_iam_role_policy" "kinesis_consumer_dynamodb" {
+  name = "dynamodb"
+  role = "${aws_iam_role.kinesis_consumer.name}"
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:PutItem"
+      ],
+      "Resource": [
+        "${aws_dynamodb_table.kinesis-performance.arn}"
+      ]
+    }
+  ]
+}
+POLICY
+}
+
 resource "aws_iam_policy" "lambda_logs" {
   name = "lambda-logs"
   policy = <<POLICY
