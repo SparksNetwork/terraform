@@ -15,7 +15,7 @@ resource "aws_iam_group" "engineers" {
 }
 
 resource "aws_iam_group_membership" "engineers" {
-  name = "engineers-group-membership"
+  name  = "engineers-group-membership"
   users = ["jwells", "tsteinberger", "sdebaun"]
   group = "${aws_iam_group.engineers.name}"
 }

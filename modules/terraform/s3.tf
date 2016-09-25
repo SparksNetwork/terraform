@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "infrastructure" {
-  bucket = "sparks-network-infrastructure"
-  acl = "private"
+  bucket = "terraform.sparks.network"
+  acl    = "private"
+  region = "us-west-2"
 }
-
