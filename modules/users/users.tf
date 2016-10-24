@@ -12,3 +12,8 @@ resource "aws_iam_user" "tsteinberger" {
   name = "tsteinberger"
   path = "/"
 }
+
+resource "aws_iam_user" "frikki" {
+  name = "frikki"
+  path = "/"
+}
