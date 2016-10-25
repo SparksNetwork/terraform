@@ -5,6 +5,9 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
   instance_tenancy     = "default"
 }
+output "vpc_id" {
+  value = "${aws_vpc.vpc.id}"
+}
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.vpc.id}"
