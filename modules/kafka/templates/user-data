@@ -1,0 +1,28 @@
+#!/bin/bash
+echo ECS_CLUSTER=${ecs_cluster} > /etc/ecs/ecs.config
+yum update -y
+yum install -y aws-cli jq nfs-utils
+
+EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed -e 's:\([0-9][0-9]*\)[a-z]*\$:\\1:'`"
+
+mkdir /mnt/efs
+
+EFS_FILE_SYSTEM_ID=${efs_id}
+DIR_SRC=$EC2_AVAIL_ZONE.$EFS_FILE_SYSTEM_ID.efs.$EC2_REGION.amazonaws.com
+
+set -e
+mount -t nfs4 $DIR_SRC:/ /mnt/efs
+mkdir -p /mnt/efs/kafka
+chown 1000:1000 /mnt/efs/kafka
+
+cp -p /etc/fstab /etc/fstab.back-$(date +%F)
+
+echo -e "$DIR_SRC:/ \t\t /mnt/efs \t\t nfs \t\t defaults \t\t 0 \t\t 0" | tee -a /etc/fstab
+
+service docker restart
+set +e
+
+aws s3 cp s3://${s3_bucket}/${start_sh_key} /etc/start.sh
+chmod +x /etc/start.sh
+/etc/start.sh &

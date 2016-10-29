@@ -9,6 +9,10 @@ output "vpc_id" {
   value = "${aws_vpc.vpc.id}"
 }
 
+output "default_security_group_id" {
+  value = "${aws_vpc.vpc.default_security_group_id}"
+}
+
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.vpc.id}"
 }

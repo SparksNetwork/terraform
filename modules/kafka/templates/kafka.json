@@ -1,0 +1,15 @@
+[
+  {
+    "name": "kafka",
+    "image": "ches/kafka:0.10.1.0",
+    "essential": true,
+    "memory": 1024,
+    "cpu": 256,
+    "portMappings": [
+      {
+        "containerPort": 9092,
+        "hostPort": 9092
+      }
+    ]
+  }
+]

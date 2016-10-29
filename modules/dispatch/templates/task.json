@@ -1,7 +1,7 @@
 [
   {
     "name": "dispatch",
-    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/dispatch:v76a49ce",
+    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/dispatch:v020ce97",
     "essential": true,
     "memory": 256,
     "cpu": 1024,
@@ -21,6 +21,10 @@
       {
         "name": "AWS_REGION",
         "value": "${aws_region}"
+      },
+      {
+        "name": "CLOUDWATCH_LOG_GROUP",
+        "value": "dispatch"
       }
     ]
   }

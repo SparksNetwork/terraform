@@ -1,0 +1,45 @@
+[
+  {
+    "name": "zookeeper",
+    "image": "mbabineau/zookeeper-exhibitor",
+    "essential": true,
+    "memory": 200,
+    "cpu": 256,
+    "portMappings": [
+      {
+        "containerPort": 8181,
+        "hostPort": 8181
+      },
+      {
+        "containerPort": 2181,
+        "hostPort": 2181
+      },
+      {
+        "containerPort": 2888,
+        "hostPort": 2888
+      },
+      {
+        "containerPort": 3888,
+        "hostPort": 3888
+      }
+    ],
+    "environment": [
+      {
+        "name": "S3_BUCKET",
+        "value": "${s3_bucket}"
+      },
+      {
+        "name": "S3_PREFIX",
+        "value": "${s3_prefix}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ZK_PASSWORD",
+        "value": "moose"
+      }
+    ]
+  }
+]

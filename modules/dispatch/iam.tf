@@ -88,3 +88,22 @@ resource "aws_iam_role_policy" "kinesis" {
 }
 POLICY
 }
+
+resource "aws_iam_role_policy" "logs" {
+  name = "logs"
+  role = "${aws_iam_role.task.id}"
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:logs:*:*:*"
+    }
+  ]
+}
+POLICY
+}

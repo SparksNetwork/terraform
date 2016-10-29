@@ -1,0 +1,25 @@
+[
+  {
+    "name": "kafka-manager",
+    "image": "sheepkiller/kafka-manager",
+    "essential": true,
+    "memory": 512,
+    "cpu": 128,
+    "portMappings": [
+      {
+        "containerPort": 9000,
+        "hostPort": 9000
+      }
+    ],
+    "environment": [
+      {
+        "name": "APPLICATION_SECRET",
+        "value": "moose64"
+      },
+      {
+        "name": "ZK_HOSTS",
+        "value": "zookeeper.aws.sparks.network:2181"
+      }
+    ]
+  }
+]
