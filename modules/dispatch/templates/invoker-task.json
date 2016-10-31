@@ -1,10 +1,10 @@
 [
   {
     "name": "invoker",
-    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/invoker:v45701b7",
+    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/invoker:v82faf55",
     "essential": true,
-    "memory": 256,
-    "cpu": 1024,
+    "memory": 400,
+    "cpu": 512,
     "environment": [
       {
         "name": "AWS_REGION",

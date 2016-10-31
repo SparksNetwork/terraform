@@ -11,6 +11,10 @@
         "value": "${firebase_database_url}"
       },
       {
+        "name": "KAFKA_CONNECTION",
+        "value": "kafka.aws.sparks.network:9092"
+      },
+      {
         "name": "CREDENTIALS",
         "value": "${credentials}"
       },

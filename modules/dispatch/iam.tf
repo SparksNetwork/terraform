@@ -101,6 +101,27 @@ resource "aws_iam_role" "invoker-task" {
   assume_role_policy = "${file("policies/ecs_assume_role.json")}"
 }
 
+resource "aws_iam_role_policy" "invoker-lambda" {
+  name = "lambda"
+  role = "${aws_iam_role.invoker-task.id}"
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lambda:InvokeFunction"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+POLICY
+}
+
 resource "aws_iam_role_policy" "invoker-logs" {
   name = "logs"
   role = "${aws_iam_role.invoker-task.id}"
