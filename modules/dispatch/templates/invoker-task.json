@@ -1,0 +1,23 @@
+[
+  {
+    "name": "invoker",
+    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/invoker:v45701b7",
+    "essential": true,
+    "memory": 256,
+    "cpu": 1024,
+    "environment": [
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "CLOUDWATCH_LOG_GROUP",
+        "value": "invoker"
+      },
+      {
+        "name": "KAFKA_CONNECTION",
+        "value": "kafka.aws.sparks.network:9092"
+      }
+    ]
+  }
+]

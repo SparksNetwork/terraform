@@ -1,7 +1,7 @@
 [
   {
     "name": "dispatch",
-    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/dispatch:v020ce97",
+    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/dispatch:v8a4178c",
     "essential": true,
     "memory": 256,
     "cpu": 1024,

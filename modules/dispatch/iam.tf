@@ -61,7 +61,7 @@ resource "aws_iam_role_policy" "ecs" {
 POLICY
 }
 
-resource "aws_iam_role" "task" {
+resource "aws_iam_role" "dispatch-task" {
   name_prefix = "dispatch"
   path = "/"
   assume_role_policy = "${file("policies/ecs_assume_role.json")}"
@@ -69,7 +69,7 @@ resource "aws_iam_role" "task" {
 
 resource "aws_iam_role_policy" "kinesis" {
   name = "kinesis"
-  role = "${aws_iam_role.task.id}"
+  role = "${aws_iam_role.dispatch-task.id}"
   policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -89,21 +89,42 @@ resource "aws_iam_role_policy" "kinesis" {
 POLICY
 }
 
-resource "aws_iam_role_policy" "logs" {
+resource "aws_iam_role_policy" "dispatch-logs" {
   name = "logs"
-  role = "${aws_iam_role.task.id}"
+  role = "${aws_iam_role.dispatch-task.id}"
+  policy = "${file("${path.module}/templates/logs-policy.json")}"
+}
+
+resource "aws_iam_role" "invoker-task" {
+  name_prefix = "invoker"
+  path = "/"
+  assume_role_policy = "${file("policies/ecs_assume_role.json")}"
+}
+
+resource "aws_iam_role_policy" "invoker-logs" {
+  name = "logs"
+  role = "${aws_iam_role.invoker-task.id}"
+  policy = "${file("${path.module}/templates/logs-policy.json")}"
+}
+
+resource "aws_iam_role_policy" "invoker-s3" {
+  name = "s3"
+  role = "${aws_iam_role.invoker-task.id}"
   policy = <<POLICY
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "logs:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:logs:*:*:*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::terraform.sparks.network/functions.json",
+                "arn:aws:s3:::terraform.sparks.network/schemas.json"
+            ]
+        }
+    ]
 }
 POLICY
 }

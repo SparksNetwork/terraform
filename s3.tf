@@ -8,10 +8,6 @@ resource "aws_s3_bucket_object" "firebase-credentials" {
   content_type = "application/json"
   source = "files/firebase/credentials.json"
   kms_key_id = "${aws_kms_key.firebase.arn}"
-
-  lifecycle {
-    ignore_changes = ["source"]
-  }
 }
 
 output "firebase_credentials_bucket" {

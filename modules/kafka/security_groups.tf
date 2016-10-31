@@ -52,13 +52,31 @@ resource "aws_security_group_rule" "self-egress" {
   source_security_group_id = "${aws_security_group.kafka.id}"
 }
 
-resource "aws_security_group_rule" "zookeeper-ingress" {
+resource "aws_security_group_rule" "exhibitor-ingress" {
   from_port = 8181
   to_port = 8181
   protocol = "tcp"
   security_group_id = "${aws_security_group.kafka.id}"
   type = "ingress"
   cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "zookeeper-ingress" {
+  from_port = 2181
+  to_port = 2181
+  protocol = "tcp"
+  security_group_id = "${aws_security_group.kafka.id}"
+  type = "ingress"
+  cidr_blocks = ["${var.vpc_cidr}"]
+}
+
+resource "aws_security_group_rule" "kafka-ingress" {
+  from_port = 9092
+  to_port = 9092
+  protocol = "tcp"
+  security_group_id = "${aws_security_group.kafka.id}"
+  type = "ingress"
+  cidr_blocks = ["${var.vpc_cidr}"]
 }
 
 resource "aws_security_group_rule" "kafka-manager-ingress" {

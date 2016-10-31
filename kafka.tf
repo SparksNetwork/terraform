@@ -9,6 +9,7 @@ module "kafka" {
   s3_prefix = "zookeeper"
   subnet_ids = ["${module.vpc.public_subnet_ids}"]
   vpc_id = "${module.vpc.vpc_id}"
+  vpc_cidr = "${module.vpc.vpc_cidr}"
   route53_zone = "${aws_route53_zone.aws_sparks_network.name}"
 }
 

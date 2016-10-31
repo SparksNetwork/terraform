@@ -29,3 +29,21 @@ resource "aws_security_group_rule" "https" {
   type = "egress"
   cidr_blocks = ["0.0.0.0/0"]
 }
+
+resource "aws_security_group_rule" "kafka" {
+  from_port = 9092
+  to_port = 9092
+  protocol = "tcp"
+  security_group_id = "${aws_security_group.dispatch.id}"
+  type = "egress"
+  cidr_blocks = ["${var.vpc_cidr}"]
+}
+
+resource "aws_security_group_rule" "zookeeper" {
+  from_port = 2181
+  to_port = 2181
+  protocol = "tcp"
+  security_group_id = "${aws_security_group.dispatch.id}"
+  type = "egress"
+  cidr_blocks = ["${var.vpc_cidr}"]
+}
