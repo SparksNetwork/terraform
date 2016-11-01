@@ -1,7 +1,7 @@
 [
   {
     "name": "invoker",
-    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/invoker:v82faf55",
+    "image": "878160042194.dkr.ecr.us-west-2.amazonaws.com/invoker:vfdd0fab",
     "essential": true,
     "memory": 400,
     "cpu": 512,

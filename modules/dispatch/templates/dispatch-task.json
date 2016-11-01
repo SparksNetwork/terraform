@@ -20,7 +20,7 @@
       },
       {
         "name": "KINESIS_STREAM",
-        "value": "${kinesis_stream}"
+        "value": "${commands_topic}"
       },
       {
         "name": "AWS_REGION",

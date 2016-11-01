@@ -67,27 +67,27 @@ resource "aws_iam_role" "dispatch-task" {
   assume_role_policy = "${file("policies/ecs_assume_role.json")}"
 }
 
-resource "aws_iam_role_policy" "kinesis" {
-  name = "kinesis"
-  role = "${aws_iam_role.dispatch-task.id}"
-  policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "kinesis:DescribeStream",
-                "kinesis:Put*"
-            ],
-            "Resource": [
-                "${var.kinesis_stream}"
-            ]
-        }
-    ]
-}
-POLICY
-}
+# resource "aws_iam_role_policy" "kinesis" {
+#   name = "kinesis"
+#   role = "${aws_iam_role.dispatch-task.id}"
+#   policy = <<POLICY
+# {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "kinesis:DescribeStream",
+#                 "kinesis:Put*"
+#             ],
+#             "Resource": [
+#                 "${var.kinesis_stream}"
+#             ]
+#         }
+#     ]
+# }
+# POLICY
+# }
 
 resource "aws_iam_role_policy" "dispatch-logs" {
   name = "logs"

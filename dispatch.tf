@@ -4,7 +4,7 @@ module "dispatch" {
   subnet_ids = ["${module.vpc.public_subnet_ids}"]
   vpc_id = "${module.vpc.vpc_id}"
   vpc_cidr = "${module.vpc.vpc_cidr}"
-  kinesis_stream = "${module.kinesis.commands_arn}"
+  commands_topic = "commands"
   firebase_database_url = "https://sparks-staging-v4.firebaseio.com"
 }
 

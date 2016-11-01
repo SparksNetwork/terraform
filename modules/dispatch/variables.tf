@@ -4,5 +4,5 @@ variable "subnet_ids" {
 }
 variable "vpc_id" {}
 variable "vpc_cidr" {}
-variable "kinesis_stream" {}
+variable "commands_topic" {}
 variable "firebase_database_url" {}

@@ -20,7 +20,7 @@ data "aws_ami" "ecs" {
 resource "aws_launch_configuration" "dispatch" {
   name_prefix = "dispatch"
   image_id = "${data.aws_ami.ecs.image_id}"
-  instance_type = "t2.nano"
+  instance_type = "t2.small"
   key_name = "${aws_key_pair.dispatch.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.dispatch.id}"
   security_groups = ["${aws_security_group.dispatch.id}"]

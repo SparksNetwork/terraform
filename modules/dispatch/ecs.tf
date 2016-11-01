@@ -8,7 +8,7 @@ data "template_file" "dispatch-task" {
   vars {
     firebase_database_url = "${var.firebase_database_url}"
     credentials = "${base64encode(file("files/firebase/credentials.json"))}"
-    kinesis_stream = "${element(split("/", var.kinesis_stream), 1)}"
+    commands_topic = "${var.commands_topic}"
     aws_region = "${var.aws_region}"
   }
 }
