@@ -22,8 +22,8 @@ data "template_file" "user-data" {
 
   vars {
     ecs_cluster = "${aws_ecs_cluster.kafka.name}"
-    s3_bucket = "${aws_s3_bucket_object.start-sh.bucket}"
-    start_sh_key = "${aws_s3_bucket_object.start-sh.key}"
+    # s3_bucket = "${aws_s3_bucket_object.start-sh.bucket}"
+    # start_sh_key = "${aws_s3_bucket_object.start-sh.key}"
     efs_id = "${aws_efs_file_system.kafka.id}"
   }
 }
@@ -34,14 +34,14 @@ resource "aws_launch_configuration" "kafka" {
   instance_type = "t2.small"
   key_name = "${aws_key_pair.kafka.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.kafka.id}"
-  security_groups = ["${aws_security_group.kafka.id}"]
+  security_groups = ["${aws_security_group.kafka.id}", "${aws_security_group.exhibitor.id}"]
   user_data = "${data.template_file.user-data.rendered}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  depends_on = ["aws_s3_bucket_object.start-sh"]
+  # depends_on = ["aws_s3_bucket_object.start-sh"]
 }
 
 resource "aws_autoscaling_group" "kafka" {

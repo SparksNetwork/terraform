@@ -1,7 +1,7 @@
 [
   {
     "name": "kafka-manager",
-    "image": "sheepkiller/kafka-manager",
+    "image": "jemmyw/kafka-manager:1.3.2.1",
     "essential": true,
     "memory": 512,
     "cpu": 128,
@@ -19,6 +19,10 @@
       {
         "name": "ZK_HOSTS",
         "value": "zookeeper.aws.sparks.network:2181"
+      },
+      {
+        "name": "KM_ARGS",
+        "value": "-Dplay.http.context=/kafka-manager"
       }
     ]
   }

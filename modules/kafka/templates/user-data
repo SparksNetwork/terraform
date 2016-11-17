@@ -21,8 +21,3 @@ cp -p /etc/fstab /etc/fstab.back-$(date +%F)
 echo -e "$DIR_SRC:/ \t\t /mnt/efs \t\t nfs \t\t defaults \t\t 0 \t\t 0" | tee -a /etc/fstab
 
 service docker restart
-set +e
-
-aws s3 cp s3://${s3_bucket}/${start_sh_key} /etc/start.sh
-chmod +x /etc/start.sh
-/etc/start.sh &

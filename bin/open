@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+EXT_IP=$(curl -s https://api.ipify.org)
+EXHIBITOR_SG_ID=$(terraform output --json | jq -r ".exhibitor_security_group.value")
+ALB_SG_ID=$(terraform output --json | jq -r ".kafka_alb_security_group.value")
+
+echo $EXT_IP
+echo $EXHIBITOR_SG_ID
+echo $ALB_SG_ID
+
+handler()
+{
+    echo "Revoking"
+    aws ec2 revoke-security-group-ingress --group-id $ALB_SG_ID --protocol tcp --port 80 --cidr $EXT_IP/32
+    aws ec2 revoke-security-group-ingress --group-id $EXHIBITOR_SG_ID --protocol tcp --port 22 --cidr $EXT_IP/32
+    aws ec2 revoke-security-group-ingress --group-id $EXHIBITOR_SG_ID --protocol tcp --port 9000 --cidr $EXT_IP/32
+    echo "Revoked"
+    exit 0
+}
+
+aws ec2 authorize-security-group-ingress --group-id $ALB_SG_ID --protocol tcp --port 80 --cidr $EXT_IP/32
+aws ec2 authorize-security-group-ingress --group-id $EXHIBITOR_SG_ID --protocol tcp --port 22 --cidr $EXT_IP/32
+aws ec2 authorize-security-group-ingress --group-id $EXHIBITOR_SG_ID --protocol tcp --port 9000 --cidr $EXT_IP/32
+
+echo "Opened ports 22, 80, 9000 to $EXT_IP, will close in 10 minutes"
+
+trap handler SIGINT
+sleep 600
+handler

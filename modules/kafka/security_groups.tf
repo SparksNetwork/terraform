@@ -7,15 +7,6 @@ output "security_group_id" {
   value = "${aws_security_group.kafka.id}"
 }
 
-resource "aws_security_group_rule" "ssh-ingress" {
-  from_port = 22
-  protocol = "tcp"
-  to_port = 22
-  security_group_id = "${aws_security_group.kafka.id}"
-  type = "ingress"
-  cidr_blocks = ["0.0.0.0/0"]
-}
-
 resource "aws_security_group_rule" "http-egress" {
   from_port = 80
   protocol = "tcp"
@@ -52,15 +43,6 @@ resource "aws_security_group_rule" "self-egress" {
   source_security_group_id = "${aws_security_group.kafka.id}"
 }
 
-resource "aws_security_group_rule" "exhibitor-ingress" {
-  from_port = 8181
-  to_port = 8181
-  protocol = "tcp"
-  security_group_id = "${aws_security_group.kafka.id}"
-  type = "ingress"
-  cidr_blocks = ["0.0.0.0/0"]
-}
-
 resource "aws_security_group_rule" "zookeeper-ingress" {
   from_port = 2181
   to_port = 2181
@@ -79,11 +61,11 @@ resource "aws_security_group_rule" "kafka-ingress" {
   cidr_blocks = ["${var.vpc_cidr}"]
 }
 
-resource "aws_security_group_rule" "kafka-manager-ingress" {
-  from_port = 9000
-  to_port = 9000
-  protocol = "tcp"
-  security_group_id = "${aws_security_group.kafka.id}"
-  type = "ingress"
-  cidr_blocks = ["0.0.0.0/0"]
+resource "aws_security_group" "exhibitor" {
+  name_prefix = "exhibitor"
+  vpc_id = "${var.vpc_id}"
+}
+
+output "exhibitor_security_group" {
+  value = "${aws_security_group.exhibitor.id}"
 }

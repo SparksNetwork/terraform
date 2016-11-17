@@ -1,3 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
+[[ -f ~/bin/sparksaws ]] && source ~/bin/sparksaws
 terraform apply terraform.plan && rm terraform.plan

@@ -16,3 +16,19 @@ module "kafka" {
 output "kafka_asg_topic_arn" {
   value = "${module.kafka.asg_topic_arn}"
 }
+
+output "kafka_repository_url" {
+  value = "${module.kafka.kafka_repository_url}"
+}
+
+output "zookeeper_repository_url" {
+  value = "${module.kafka.zookeeper_repository_url}"
+}
+
+output "exhibitor_security_group" {
+  value = "${module.kafka.exhibitor_security_group}"
+}
+
+output "kafka_alb_security_group" {
+  value = "${module.kafka.kafka-alb_security_group}"
+}
