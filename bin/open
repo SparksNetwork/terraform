@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# This program opens port 22 and port 80 to the kafka cluster allowing for
+# debugging. It will revoke access when you quit the program or after 10 minutes
 
 EXT_IP=$(curl -s https://api.ipify.org)
 EXHIBITOR_SG_ID=$(terraform output --json | jq -r ".exhibitor_security_group.value")
