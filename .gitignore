@@ -3,3 +3,4 @@ terraform.plan
 files/keys
 files/firebase
 files/braintree
+secret.tfvars.json

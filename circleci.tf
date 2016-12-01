@@ -1,5 +1,6 @@
 module "circleci" {
   source = "./modules/circleci"
+  terraform_bucket_arn = "${aws_s3_bucket.terraform.arn}"
 }
 
 output "circleci_access_key" {

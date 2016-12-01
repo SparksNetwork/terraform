@@ -18,4 +18,8 @@ resource "aws_ecs_service" "invoker" {
   task_definition = "${aws_ecs_task_definition.invoker.arn}"
   desired_count = 1
   deployment_minimum_healthy_percent = 0
+
+  lifecycle {
+    ignore_changes = ["task_definition"]
+  }
 }

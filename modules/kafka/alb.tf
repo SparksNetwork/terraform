@@ -40,6 +40,10 @@ resource "aws_alb" "kafka" {
   security_groups = ["${aws_security_group.kafka-alb.id}"]
 }
 
+output "alb_dns_name" {
+  value = "${aws_alb.kafka.dns_name}"
+}
+
 resource "aws_alb_target_group" "kafka-manager" {
   name = "kafka-manager"
   port = 9000

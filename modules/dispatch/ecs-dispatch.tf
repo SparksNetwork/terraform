@@ -21,5 +21,9 @@ resource "aws_ecs_service" "dispatch" {
   task_definition = "${aws_ecs_task_definition.dispatch.arn}"
   desired_count = 1
   deployment_minimum_healthy_percent = 0
+
+  lifecycle {
+    ignore_changes = ["task_definition"]
+  }
 }
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 [[ -f ~/bin/sparksaws ]] && source ~/bin/sparksaws
-exec terraform plan -out=terraform.plan -var-file=apex.tfvars "$@"
+exec terraform plan -out=terraform.plan -var-file=secret.tfvars.json "$@"
