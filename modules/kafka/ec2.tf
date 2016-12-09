@@ -22,8 +22,6 @@ data "template_file" "user-data" {
 
   vars {
     ecs_cluster = "${aws_ecs_cluster.kafka.name}"
-    # s3_bucket = "${aws_s3_bucket_object.start-sh.bucket}"
-    # start_sh_key = "${aws_s3_bucket_object.start-sh.key}"
     efs_id = "${aws_efs_file_system.kafka.id}"
   }
 }
@@ -40,8 +38,6 @@ resource "aws_launch_configuration" "kafka" {
   lifecycle {
     create_before_destroy = true
   }
-
-  # depends_on = ["aws_s3_bucket_object.start-sh"]
 }
 
 resource "aws_autoscaling_group" "kafka" {
