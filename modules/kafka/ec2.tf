@@ -43,8 +43,8 @@ resource "aws_launch_configuration" "kafka" {
 resource "aws_autoscaling_group" "kafka" {
   launch_configuration = "${aws_launch_configuration.kafka.id}"
   max_size = 4
-  min_size = 2
-  desired_capacity = 3
+  min_size = 0
+  desired_capacity = "${var.desired_capacity}"
   name = "kafka"
   vpc_zone_identifier  = ["${var.subnet_ids}"]
   health_check_grace_period = 30

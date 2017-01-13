@@ -37,8 +37,8 @@ USER_DATA
 resource "aws_autoscaling_group" "dispatch" {
   launch_configuration = "${aws_launch_configuration.dispatch.id}"
   max_size = 3
-  min_size = 2
-  desired_capacity = 2
+  min_size = 0
+  desired_capacity = "${var.desired_capacity}"
   name = "dispatch"
   vpc_zone_identifier  = ["${var.subnet_ids}"]
   health_check_grace_period = 30

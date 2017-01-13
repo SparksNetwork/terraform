@@ -7,3 +7,4 @@ variable "vpc_cidr" {}
 variable "s3_bucket" {}
 variable "s3_prefix" {}
 variable "route53_zone" {}
+variable "desired_capacity" {}

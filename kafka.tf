@@ -11,6 +11,7 @@ module "kafka" {
   vpc_id = "${module.vpc.vpc_id}"
   vpc_cidr = "${module.vpc.vpc_cidr}"
   route53_zone = "${aws_route53_zone.aws_sparks_network.name}"
+  desired_capacity = 0
 }
 
 output "kafka_asg_topic_arn" {
